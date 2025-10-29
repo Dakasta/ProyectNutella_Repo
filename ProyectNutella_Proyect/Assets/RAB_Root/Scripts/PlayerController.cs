@@ -15,6 +15,10 @@ public class PlayerController : MonoBehaviour
     public float jumpForce = 6;
     public bool isGrounded = true;
 
+    [Header("Dash Parameters")]
+    public float dashForce = 3;
+    public bool isDashed = false;
+
     [Header("Respawn System")]
     public float fallLimit = -10;
     public Transform respawnPoint;
@@ -79,6 +83,12 @@ public class PlayerController : MonoBehaviour
         PlaySFX(0);
     }
 
+    void Dash()
+    {
+        playerRb.AddForce(Vector3.right * dashForce * moveInput.x, ForceMode.Impulse);
+        playerRb.AddForce(Vector3.forward * dashForce * moveInput.y, ForceMode.Impulse);
+    }
+
     void Respawn()
     {
         //Sustituir el transform.position del player por el del punto de respawn
@@ -107,6 +117,15 @@ public class PlayerController : MonoBehaviour
         {
             isGrounded = false;
             Jump();
+        }
+    }
+
+    public void OnDash(InputAction.CallbackContext context)
+    {
+        if (context.performed && isDashed == false)
+        {
+            isDashed = true;
+            Dash();
         }
     }
 

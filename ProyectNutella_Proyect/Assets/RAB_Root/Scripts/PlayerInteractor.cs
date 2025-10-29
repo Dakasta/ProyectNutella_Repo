@@ -15,10 +15,18 @@ public class PlayerInteractor : MonoBehaviour
     [Header("Sound References")]
     public PlayerController playerCont; //Ref als cript que contiene las llamadas a sonidos
 
+    [Header("Object References")]
+    [SerializeField] GameObject keyDoor;
+    [SerializeField] GameObject key;
+    [SerializeField] GameObject pickUpDoor1;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         points = 0;
+        keyDoor.SetActive(true);
+        pickUpDoor1.SetActive(true);
+        key.SetActive(true);
     }
 
     // Update is called once per frame
@@ -30,6 +38,8 @@ public class PlayerInteractor : MonoBehaviour
         }
 
         pointsText.text = "Points: " + points.ToString();
+
+        PickUpDoors();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -40,6 +50,20 @@ public class PlayerInteractor : MonoBehaviour
             //Destroy(other.gameObject);
             other.gameObject.SetActive(false);
             playerCont.PlaySFX(1);
+        }
+
+        if (other.gameObject.CompareTag("Key"))
+        {
+            key.SetActive(false);
+            keyDoor.SetActive(false);
+        }
+    }
+
+    void PickUpDoors()
+    {
+        if (points >= 1)
+        {
+            pickUpDoor1.SetActive(false);
         }
     }
 
