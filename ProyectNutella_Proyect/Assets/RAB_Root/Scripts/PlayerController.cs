@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour
     [Header("Editor References")]
     public Rigidbody playerRb; //Referencia al Rigidbody del player
     public AudioSource playerAudio; //Ref al emisor de sonidos del player
-    public float springPlatformsForce;
+    
 
     [Header("Movement Parameters")]
     public float speed = 10;
@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Dash Parameters")]
     public float dashForce = 10;
-    public bool isDashed = true;
+    public bool isDashing = false;
 
     [Header("Respawn System")]
     public float fallLimit = -10;
@@ -55,17 +55,13 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             isGrounded = true; //Devuelve la capacidad de saltar
-            isDashed = true;
+            isDashing = false;
         }
         if (collision.gameObject.CompareTag("Obstacle"))
         {
             Respawn();
         }
 
-        if (collision.gameObject.CompareTag("Spring"))
-        {
-            playerRb.AddForce(Vector3.up * springPlatformsForce, ForceMode.Impulse);
-        }
     }
 
 
@@ -92,8 +88,8 @@ public class PlayerController : MonoBehaviour
 
     void Dash()
     {
-        playerRb.AddForce(Vector3.right * dashForce, ForceMode.Impulse);
-        playerRb.AddForce(Vector3.forward * dashForce, ForceMode.Impulse);
+        Vector3 dashDirection = transform.forward;
+        playerRb.AddForce(dashDirection * dashForce, ForceMode.VelocityChange);
     }
 
     void Respawn()
@@ -129,10 +125,11 @@ public class PlayerController : MonoBehaviour
 
     public void OnDash(InputAction.CallbackContext context)
     {
-        if (context.performed && isDashed == true)
+        if (context.performed && isDashing == false)
         {
-            isDashed = false;
+            isDashing = true;
             Dash();
+            
         }
     }
 

@@ -16,10 +16,13 @@ public class PlayerInteractor : MonoBehaviour
     public PlayerController playerCont; //Ref als cript que contiene las llamadas a sonidos
 
     [Header("Object References")]
-    [SerializeField] GameObject keyDoor;
-    [SerializeField] GameObject key;
-    [SerializeField] GameObject pickUpDoor1;
-    
+    public GameObject keyDoor;
+    public GameObject key;
+    public GameObject pickUpDoor1;
+    public float springPlatformsForce;
+
+    [Header("Player References")]
+    public Rigidbody playerRb;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -57,6 +60,14 @@ public class PlayerInteractor : MonoBehaviour
         {
             key.SetActive(false);
             keyDoor.SetActive(false);
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Spring"))
+        {
+            playerRb.AddForce(Vector3.up * springPlatformsForce, ForceMode.Impulse);
         }
     }
 
