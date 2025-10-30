@@ -19,6 +19,7 @@ public class PlayerInteractor : MonoBehaviour
     [SerializeField] GameObject keyDoor;
     [SerializeField] GameObject key;
     [SerializeField] GameObject pickUpDoor1;
+    
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -37,7 +38,7 @@ public class PlayerInteractor : MonoBehaviour
             LoadScene();
         }
 
-        pointsText.text = "Points: " + points.ToString();
+        pointsText.text = "Points: " + points.ToString() + "/" + winPoints.ToString();
 
         PickUpDoors();
     }
