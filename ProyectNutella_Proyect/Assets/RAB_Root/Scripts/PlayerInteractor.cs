@@ -67,7 +67,7 @@ public class PlayerInteractor : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Spring"))
         {
-            playerRb.AddForce(Vector3.up * springPlatformsForce * 2, ForceMode.Impulse);
+            playerRb.AddForce(Vector3.up * springPlatformsForce, ForceMode.Impulse);
         }
     }
 
