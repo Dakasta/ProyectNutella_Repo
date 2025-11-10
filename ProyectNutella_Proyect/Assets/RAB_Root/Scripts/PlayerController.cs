@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour
 
     [Header("Movement Parameters")]
     public float speed = 10;
+    public float baseSpeed;
+    public float fastSpeed;
     public Vector2 moveInput; //Almacén del input de movimiento de los periféricos que usamos para jugar
 
     [Header("Jump Parameters")]
@@ -30,7 +32,8 @@ public class PlayerController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        baseSpeed = speed; //determinas lo que vale la velocidad base al iniciar el juego
+        fastSpeed = speed * 2;
     }
 
     // Update is called once per frame
@@ -72,7 +75,15 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("FastPlatform"))
         {
-          
+            speed = fastSpeed;
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("FastPlatform"))
+        {
+            speed = baseSpeed;
         }
     }
 
