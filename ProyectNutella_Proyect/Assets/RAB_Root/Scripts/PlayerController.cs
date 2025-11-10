@@ -61,9 +61,20 @@ public class PlayerController : MonoBehaviour
         {
             Respawn();
         }
-
+        if (collision.gameObject.CompareTag("FastPlatform"))
+        {
+            isGrounded = true;
+            isDashing = false;
+        }
     }
 
+    private void OnCollisionStay(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("FastPlatform"))
+        {
+          
+        }
+    }
 
     void CinematicMovement()
     {
