@@ -69,6 +69,10 @@ public class PlayerController : MonoBehaviour
             isGrounded = true;
             isDashing = false;
         }
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            Respawn();
+        }
     }
 
     private void OnCollisionStay(Collision collision)
