@@ -1,12 +1,12 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerController : MonoBehaviour
+public class InversePlayerController : MonoBehaviour
 {
     [Header("Editor References")]
     public Rigidbody playerRb; //Referencia al Rigidbody del player
     public AudioSource playerAudio; //Ref al emisor de sonidos del player
-    
+
 
     [Header("Movement Parameters")]
     public float speed = 10;
@@ -102,8 +102,8 @@ public class PlayerController : MonoBehaviour
     void PhysicalMovement()
     {
         //Añadir una fuerza al rigidbody = (Dirección * velocidad * input)
-        playerRb.AddForce(Vector3.right * speed * moveInput.x);
-        playerRb.AddForce(Vector3.forward * speed * moveInput.y);
+        playerRb.AddForce(Vector3.right * speed * moveInput.x * -1);
+        playerRb.AddForce(Vector3.forward * speed * moveInput.y * -1);
     }
 
     void Jump()
@@ -111,12 +111,13 @@ public class PlayerController : MonoBehaviour
         playerRb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         PlaySFX(0);
     }
+
     void Respawn()
     {
         //Sustituir el transform.position del player por el del punto de respawn
         transform.position = respawnPoint.position;
         //Resetear el valor de aceleración del rigidbody
-        playerRb.linearVelocity = new Vector3(0,0,0);
+        playerRb.linearVelocity = new Vector3(0, 0, 0);
         PlaySFX(2);
     }
 
@@ -132,7 +133,7 @@ public class PlayerController : MonoBehaviour
         moveInput = context.ReadValue<Vector2>();
     }
 
-    public void OnJump(InputAction.CallbackContext context) 
+    public void OnJump(InputAction.CallbackContext context)
     {
 
         if (context.performed && isGrounded == true)
@@ -141,6 +142,5 @@ public class PlayerController : MonoBehaviour
             Jump();
         }
     }
-
     #endregion
 }
