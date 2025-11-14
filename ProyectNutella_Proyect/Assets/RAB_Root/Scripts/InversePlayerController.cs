@@ -18,16 +18,16 @@ public class InversePlayerController : MonoBehaviour
     public float jumpForce = 6;
     public bool isGrounded = true;
 
-    [Header("Dash Parameters")]
-    public float dashForce = 10;
-    public bool isDashing = false;
-
     [Header("Respawn System")]
     public float fallLimit = -10;
     public Transform respawnPoint;
 
     [Header("Sound Configuration")]
     public AudioClip[] soundCollection;
+
+    [Header("Boss Respawn System")]
+    public Transform bossRespawnPoint;
+    public GameObject boss;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -58,7 +58,6 @@ public class InversePlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             isGrounded = true; //Devuelve la capacidad de saltar
-            isDashing = false;
         }
         if (collision.gameObject.CompareTag("Obstacle"))
         {
@@ -67,11 +66,11 @@ public class InversePlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("FastPlatform"))
         {
             isGrounded = true;
-            isDashing = false;
         }
         if (collision.gameObject.CompareTag("Enemy"))
         {
             Respawn();
+            BossRespawn();
         }
     }
 
@@ -119,6 +118,11 @@ public class InversePlayerController : MonoBehaviour
         //Resetear el valor de aceleración del rigidbody
         playerRb.linearVelocity = new Vector3(0, 0, 0);
         PlaySFX(2);
+    }
+
+    public void BossRespawn()
+    {
+        boss.transform.position = bossRespawnPoint.position;
     }
 
     public void PlaySFX(int soundToPlay)
