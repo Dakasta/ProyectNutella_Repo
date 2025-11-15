@@ -19,6 +19,8 @@ public class PlayerInteractor : MonoBehaviour
     public GameObject keyDoor;
     public GameObject key;
     public GameObject pickUpDoor1;
+    public GameObject pickUpDoor2;
+    public GameObject pickUpDoor3;
     public float springPlatformsForce;
 
     [Header("Player References")]
@@ -30,6 +32,8 @@ public class PlayerInteractor : MonoBehaviour
         points = 0;
         keyDoor.SetActive(true);
         pickUpDoor1.SetActive(true);
+        pickUpDoor2.SetActive(true);
+        pickUpDoor3.SetActive(true);
         key.SetActive(true);
     }
 
@@ -44,6 +48,9 @@ public class PlayerInteractor : MonoBehaviour
         pointsText.text = "Points: " + points.ToString() + "/" + winPoints.ToString();
 
         PickUpDoors();
+        PickUpDoors2();
+        PickUpDoors3();
+
     }
 
     private void OnTriggerEnter(Collider other)
@@ -76,6 +83,20 @@ public class PlayerInteractor : MonoBehaviour
         if (points >= 198)
         {
             pickUpDoor1.SetActive(false);
+        }
+    }
+    void PickUpDoors2()
+    {
+        if (points >= 118)
+        {
+            pickUpDoor2.SetActive(false);
+        }
+    }
+    void PickUpDoors3()
+    {
+        if (points >= 6)
+        {
+            pickUpDoor3.SetActive(false);
         }
     }
 
