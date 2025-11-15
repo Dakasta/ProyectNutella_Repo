@@ -62,6 +62,7 @@ public class InversePlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Obstacle"))
         {
             Respawn();
+            BossRespawn();
         }
         if (collision.gameObject.CompareTag("FastPlatform"))
         {

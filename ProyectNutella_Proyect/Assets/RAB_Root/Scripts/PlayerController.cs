@@ -62,6 +62,7 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Obstacle"))
         {
             Respawn();
+            BossRespawn();
         }
         if (collision.gameObject.CompareTag("FastPlatform"))
         {
