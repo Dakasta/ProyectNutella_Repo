@@ -44,6 +44,7 @@ public class PlayerController : MonoBehaviour
         if (transform.position.y <= fallLimit)
         {
             Respawn();
+            BossRespawn();
         }
     }
 
