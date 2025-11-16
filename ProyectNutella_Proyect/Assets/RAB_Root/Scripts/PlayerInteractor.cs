@@ -94,7 +94,7 @@ public class PlayerInteractor : MonoBehaviour
     }
     void PickUpDoors3()
     {
-        if (points >= 6)
+        if (points >= 10)
         {
             pickUpDoor3.SetActive(false);
         }
